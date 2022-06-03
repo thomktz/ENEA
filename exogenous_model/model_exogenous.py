@@ -6,7 +6,7 @@ import statsmodels.api as sm
 from sklearn.linear_model import LinearRegression
 
 
-model_df = pd.read_csv("MODEL_DF.csv")
+model_df = pd.read_csv("../MODEL_DF.csv")
 
 
 X = model_df[["before_crash_frequency", 
