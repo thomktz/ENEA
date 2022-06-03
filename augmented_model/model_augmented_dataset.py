@@ -25,8 +25,9 @@ def fit_RandomForest(X, y):
     grid.fit(X, y)
     return grid
 
+
 X = df_grouped[["SPEED_ZONE", "ALLVEHS_AADT", "SURFACE_COND"]]
 y = df_grouped["ACCIDENT_RATE"]
 
-grid = fit_RandomForest(X, y)
+#grid = fit_RandomForest(X, y)
 # %%
