@@ -1,5 +1,5 @@
 # %%
-from model import fit_LinearRegression, X, y, fit_RandomForest
+from model_exogenous import X, y, fit_RandomForest, X_mean, X_std, y_mean, y_std
 from data_merging import df
 from utils import access_road, keys, start_date, end_date
 import pandas as pd
@@ -27,19 +27,18 @@ def predict(speed_delta, road_name, road_type, road_nb):
     X_oos = pd.DataFrame(dict(
                             before_crash_frequency=[crash_frequency], 
                             initial_speed = speed,
-                            speed_delta = -speed_delta, 
+                            speed_delta = speed_delta, 
                             before_severity = before_severity,  
                             average_wetness = average_wetness, 
                             average_vehicule_volume = average_vehicule_volume))
     
-
-
+    X_oos = (X_oos-X_mean)/X_std
     
     return estimator.predict(X_oos)
     
 key = ("ALBION", "STREET", 5867)
     
-Delta_speeds = np.linspace(-60, 60, num=12)
+Delta_speeds = np.linspace(-40, 50, num=9)
 preds = [predict(delta, *key)[0] for delta in Delta_speeds]
 df_results = pd.DataFrame({"accident_rate_evol":preds, "speed_delta":Delta_speeds})
 

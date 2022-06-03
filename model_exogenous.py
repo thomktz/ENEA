@@ -19,8 +19,13 @@ X = model_df[["before_crash_frequency",
               "average_wetness", 
               "average_vehicule_volume"]]
 
+X_mean, X_std = X.mean(), X.std()
+X = (X-X_mean)/X_std
 
-y = (model_df["after_crash_frequency"] - model_df["before_crash_frequency"])
+y = model_df["after_crash_frequency"]
+y_mean, y_std = y.mean(), y.std()
+y = (y-y_mean)/y_std
+
 
 
 
@@ -45,5 +50,12 @@ def fit_LinearRegression(X, y):
     estimator = LinearRegression()
     estimator.fit(X, y)
     print(estimator.coef_)
+    return estimator
+
+def fit_sm_LinearRegression(X, y):
+    X = sm.add_constant(X)
+    estimator = sm.OLS(y, X)
+    result = estimator.fit()
+    print(result.summary())
     return estimator
 # %%
