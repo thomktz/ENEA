@@ -1,10 +1,8 @@
 # %%
-from sklearn.ensemble import RandomForestClassifier
 from utils import access_road, keys, start_date, end_date
 from data_merging import df
 import numpy as np
 import pandas as pd
-from datetime import datetime
 
 
 def create_model_df(df):
